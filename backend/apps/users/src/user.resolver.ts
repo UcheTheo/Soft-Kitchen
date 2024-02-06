@@ -1,5 +1,12 @@
 import { BadRequestException, UseGuards } from '@nestjs/common';
 import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { UsersService } from './users.service';
+import {
+  ActivationResponse,
+  LoginResponse,
+  RegisterResponse,
+} from './dtos/userResponse.dto';
+import { ActivationDto, RegisterDto } from './dtos/userRequest.dto';
 
 @Resolver('User')
 // @UseFilters
@@ -29,5 +36,13 @@ export class UsersResolver {
     @Context() context: { res: Response },
   ): Promise<ActivationResponse> {
     return await this.userService.activateUser(activationDto, context.res);
+  }
+
+  @Mutation(() => LoginResponse)
+  async Login(
+    @Args('email') email: string,
+    @Args('password') password: string,
+  ): Promise<LoginResponse> {
+    return await this.userService.Login({ email, password });
   }
 }
