@@ -13,6 +13,7 @@ import {
   RegisterDto,
 } from './dtos/userRequest.dto';
 import { User } from './entities/user.entity';
+import { AuthGuard } from './gaurds/auth.gaurds';
 
 @Resolver('User')
 // @UseFilters
@@ -50,6 +51,12 @@ export class UsersResolver {
     @Args('password') password: string,
   ): Promise<LoginResponse> {
     return await this.userService.Login({ email, password });
+  }
+
+  @Query(() => LoginResponse)
+  @UseGuards(AuthGuard)
+  async getLoggedInUser(@Context() context: { req: Request }) {
+    return await this.userService.getLoggedInUser(context.req);
   }
 
   @Mutation(() => ForgotPasswordResponse)

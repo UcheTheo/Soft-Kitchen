@@ -162,6 +162,15 @@ export class UsersService {
     }
   }
 
+  // get logged in user
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  async getLoggedInUser(req: any) {
+    const user = req.user;
+    const refreshToken = req.refreshtoken;
+    const accessToken = req.accesstoken;
+    return { user, refreshToken, accessToken };
+  }
+
   // compare with hashed password
   async comparePassword(
     password: string,
