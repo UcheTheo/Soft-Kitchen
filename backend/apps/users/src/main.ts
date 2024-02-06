@@ -7,9 +7,7 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(UsersModule);
 
   app.useStaticAssets(join(__dirname, '..', 'public'));
-  app.setBaseViewsDir(
-    join(__dirname, '..', 'backend/apps/users/email-templates'),
-  );
+  app.setBaseViewsDir(join(__dirname, '..', 'backend/Mail-Templates'));
   app.setViewEngine('ejs');
 
   app.enableCors({

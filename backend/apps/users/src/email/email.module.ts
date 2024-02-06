@@ -22,7 +22,7 @@ import { EjsAdapter } from '@nestjs-modules/mailer/dist/adapters/ejs.adapter';
           from: 'Theophilus',
         },
         template: {
-          dir: join(__dirname, '../../email-templates'),
+          dir: join(__dirname, '../../../../backend/Mail-Templates'),
           adapter: new EjsAdapter(),
           options: {
             strict: false,

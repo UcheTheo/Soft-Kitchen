@@ -70,7 +70,7 @@ export class UsersService {
     await this.emailService.sendMail({
       email,
       subject: 'Activate your account!',
-      template: './activation-mail',
+      template: './activation-email',
       name,
       activationCode,
     });
