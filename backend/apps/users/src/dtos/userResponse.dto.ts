@@ -20,6 +20,15 @@ export class RegisterResponse {
 }
 
 @ObjectType()
+export class ActivationResponse {
+  @Field(() => User)
+  user: User | unknown;
+
+  @Field(() => ErrorType, { nullable: true })
+  error?: ErrorType;
+}
+
+@ObjectType()
 export class LoginResponse {
   @Field(() => User, { nullable: true })
   user?: User | unknown;
