@@ -2,7 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService, JwtVerifyOptions } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import { PrismaService } from 'prisma/prisma.service';
+import { PrismaService } from '../../../prisma/prisma.service';
 import { ActivationDto, LoginDto, RegisterDto } from './dtos/userRequest.dto';
 import { TokenSender } from './utils/sendToken';
 
@@ -152,5 +152,10 @@ export class UsersService {
     hashedPassword: string,
   ): Promise<boolean> {
     return await bcrypt.compare(password, hashedPassword);
+  }
+
+  // get all users service
+  async getUsers() {
+    return this.prisma.user.findMany({});
   }
 }

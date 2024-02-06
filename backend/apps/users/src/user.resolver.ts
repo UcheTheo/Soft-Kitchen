@@ -7,6 +7,7 @@ import {
   RegisterResponse,
 } from './dtos/userResponse.dto';
 import { ActivationDto, RegisterDto } from './dtos/userRequest.dto';
+import { User } from './entities/user.entity';
 
 @Resolver('User')
 // @UseFilters
@@ -44,5 +45,10 @@ export class UsersResolver {
     @Args('password') password: string,
   ): Promise<LoginResponse> {
     return await this.userService.Login({ email, password });
+  }
+
+  @Query(() => [User])
+  async getUsers() {
+    return this.userService.getUsers();
   }
 }
