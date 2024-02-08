@@ -166,8 +166,8 @@ export class UsersService {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async getLoggedInUser(req: any) {
     const user = req.user;
-    const refreshToken = req.refreshtoken;
-    const accessToken = req.accesstoken;
+    const refreshToken = req.refresh_token;
+    const accessToken = req.access_token;
     return { user, refreshToken, accessToken };
   }
 

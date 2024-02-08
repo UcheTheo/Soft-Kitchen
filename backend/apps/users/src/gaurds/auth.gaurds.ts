@@ -7,7 +7,7 @@ import {
 import { ConfigService } from '@nestjs/config';
 import { GqlExecutionContext } from '@nestjs/graphql';
 import { JwtService } from '@nestjs/jwt';
-import { PrismaService } from 'prisma/prisma.service';
+import { PrismaService } from '../../../../prisma/prisma.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -21,8 +21,8 @@ export class AuthGuard implements CanActivate {
     const gqlContext = GqlExecutionContext.create(context);
     const { req } = gqlContext.getContext();
 
-    const accessToken = req.headers.accesstoken as string;
-    const refreshToken = req.headers.refreshtoken as string;
+    const accessToken = req.headers.access_token as string;
+    const refreshToken = req.headers.refresh_token as string;
 
     if (!accessToken || !refreshToken) {
       throw new UnauthorizedException('Please login to access this resource!');
@@ -44,7 +44,7 @@ export class AuthGuard implements CanActivate {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private async updateAccessToken(req: any): Promise<void> {
     try {
-      const refreshTokenData = req.headers.refreshtoken as string;
+      const refreshTokenData = req.headers.refresh_token as string;
 
       const decoded = this.jwtService.decode(refreshTokenData);
 
@@ -66,7 +66,7 @@ export class AuthGuard implements CanActivate {
         { id: user.id },
         {
           secret: this.config.get<string>('ACCESS_TOKEN_SECRET'),
-          expiresIn: '5m',
+          expiresIn: '1m',
         },
       );
 
@@ -74,12 +74,12 @@ export class AuthGuard implements CanActivate {
         { id: user.id },
         {
           secret: this.config.get<string>('REFRESH_TOKEN_SECRET'),
-          expiresIn: '7d',
+          expiresIn: '3d',
         },
       );
 
-      req.accesstoken = accessToken;
-      req.refreshtoken = refreshToken;
+      req.access_token = accessToken;
+      req.refresh_token = refreshToken;
       req.user = user;
     } catch (error) {
       throw new UnauthorizedException(error.message);
