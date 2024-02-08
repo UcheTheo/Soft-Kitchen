@@ -5,6 +5,7 @@ import {
   ActivationResponse,
   ForgotPasswordResponse,
   LoginResponse,
+  LogoutResposne,
   RegisterResponse,
 } from './dtos/userResponse.dto';
 import {
@@ -57,6 +58,12 @@ export class UsersResolver {
   @UseGuards(AuthGuard)
   async getLoggedInUser(@Context() context: { req: Request }) {
     return await this.userService.getLoggedInUser(context.req);
+  }
+
+  @Query(() => LogoutResposne)
+  @UseGuards(AuthGuard)
+  async logOutUser(@Context() context: { req: Request }) {
+    return await this.userService.Logout(context.req);
   }
 
   @Mutation(() => ForgotPasswordResponse)

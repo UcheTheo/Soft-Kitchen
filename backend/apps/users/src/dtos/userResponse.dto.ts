@@ -44,6 +44,12 @@ export class LoginResponse {
 }
 
 @ObjectType()
+export class LogoutResposne {
+  @Field()
+  message?: string;
+}
+
+@ObjectType()
 export class ForgotPasswordResponse {
   @Field()
   message: string;

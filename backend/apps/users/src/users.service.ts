@@ -171,6 +171,15 @@ export class UsersService {
     return { user, refreshToken, accessToken };
   }
 
+  // log out user
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  async Logout(req: any) {
+    req.user = null;
+    req.refresh_token = null;
+    req.access_token = null;
+    return { message: 'Logged out successfully!' };
+  }
+
   // compare with hashed password
   async comparePassword(
     password: string,
